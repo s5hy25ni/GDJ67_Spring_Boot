@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.min.edu</groupId>
-	<artifactId>SpringBoot_JSP</artifactId>
+	<artifactId>springbootdocker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>SpringBoot_JSP</name>
-	<description>Spring JSP 세팅 설명</description>
+	<name>springbootdocker</name>
+	<description>Spring JSP 도커</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -45,17 +45,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>SpringBoot_JSP</finalName>
+		<finalName>springbootdocker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -63,10 +59,46 @@
 				<configuration>
 					<excludes>
 						<exclude>
-							<groupId>org.projectlombok</groupId>
+							<groupId>
+								org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.3</version>
+				<dependencies>
+					<dependency>
+						<groupId>javax.activation</groupId>
+						<artifactId>javax.activation-api</artifactId>
+						<version>1.2.0</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-archiver</artifactId>
+						<version>3.4</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>s5hy25ni/springbootdocker</repository>
+					<tag>1.1</tag>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}.war</JAR_FILE>
+					</buildArgs>
 				</configuration>
 			</plugin>
 		</plugins>

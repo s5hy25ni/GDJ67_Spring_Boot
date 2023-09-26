@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	TODO 05 실행될 SQL이 있는 Mapper 파일을 선언
+	application.properties 파일 설정에 따라 classpath:sqls/*.xml에 생성
+	resultType은 Application.properties에 설정에 따라서 spring.datasource.driver-class-name의 VO 객체의 클래스명(EduVo) 사용
+ -->
+<mapper namespace="com.min.edu.model.IEduBoardDao">
+	<select id="selectBoard" resultType="EduVo">
+		SELECT SEQ, ID, TITLE, CONTENT, DELFLAG, REGDATE
+			FROM EDUBOARD
+			ORDER BY REGDATE DESC
+	</select>
+</mapper>

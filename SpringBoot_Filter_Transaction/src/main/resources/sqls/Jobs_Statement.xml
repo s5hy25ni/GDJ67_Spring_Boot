@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.edu.mapper.IJobsMapper">
+	<!-- TODO 05 myBatis mapper 파일, SQL문 및 ID -->
+	
+	<!-- JOB 테이블 전체 조회 -->
+	<select id="allSelectJob" resultType="JobsVo">
+		SELECT JOB_ID, JOB_TITLE || '-' || USEAGE AS JOB_TILTE, MIN_SALARY, MAX_SALARY
+			FROM JOBS
+			ORDER BY JOB_ID
+	</select>
+	
+	<!-- JOB 테이블 ROW 입력 -->
+	<insert id="insertJob" parameterType="java.util.Map">
+		INSERT INTO JOBS(JOB_ID, JOB_TITLE, MIN_SALARY, MAX_SALARY)
+			VALUES(#{id}, #{title}, #{minSal}, #{maxSal});
+	</insert>
+	
+	<!-- JOB 테이블 모든 row의 수정 -->
+	<update id="updateJob">
+		UPDATE JOBS SET USEAGE='N'
+	</update>
+</mapper>
